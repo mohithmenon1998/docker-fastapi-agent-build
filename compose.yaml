@@ -1,23 +1,24 @@
-services: # dockers compose expects 
+services:
   backend:
     build:
       context: ./backend
-      dockerfile: Dockerfile
+      dockerfile: backend.Dockerfile
     ports:
-      - 3000:8000
-    command: uvicorn api_main:app --host 0.0.0.0 --port 8000 --app-dir /app --reload
-    environment:
-      - PORT=8000
-      - MY_PROJECT=Hello World
-
+      - 8000:8000
+    working_dir: /app
+    # Added --reload so your app refreshes instantly on file edits
+    command: uvicorn api_main:app --host 0.0.0.0 --port 8000 --reload
+    env_file:
+      - .env
     volumes:
-      - ./backend/src:/app
-
+      # FIX: Mount the whole backend directory so api_main.py is included
+      - ./backend:/app
     develop:
       watch:
         - action: rebuild
           path: backend/requirements.txt
         - action: rebuild
-          path: backend/Dockerfile
+          path: backend/backend.Dockerfile
         - action: restart
-          path: backend/src/
+          # FIX: Watch the entire directory instead of a missing src folder
+          path: backend/
