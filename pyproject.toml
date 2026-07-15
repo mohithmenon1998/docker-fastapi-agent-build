@@ -10,6 +10,7 @@ dependencies = [
     "langchain-openai",
     "langgraph",
     "langgraph-supervisor",
+    "loguru>=0.7.3",
     "psycopg[binary]",
     "python-dotenv>=1.2.2",
     "requests",

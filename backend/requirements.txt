@@ -8,3 +8,4 @@ langgraph-supervisor
 langchain
 langchain-openai
 python-dotenv
+loguru
