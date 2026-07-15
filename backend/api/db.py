@@ -5,11 +5,7 @@ load_dotenv()
 from loguru import logger
 from sqlmodel import SQLModel, create_engine, Session
 
-# Log to the console automatically (no setup needed)
-logger.info("This is an info message")
 
-# # Configure the log file
-# logger.add("app.log", format="{time:YYYY-MM-DD HH:mm:ss} | {level} | {message}", rotation="500 MB", retention="10 days")
 def get_db_url():
     try:
         
@@ -30,7 +26,6 @@ def init_db():
     logger.info("Initializing DB")
     SQLModel.metadata.create_all(engine)
     logger.success("DB Initialiazed")
-    
     
     
 def get_session():
