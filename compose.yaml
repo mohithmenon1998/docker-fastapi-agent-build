@@ -1,0 +1,23 @@
+services: # dockers compose expects 
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - 3000:8000
+    command: uvicorn api_main:app --host 0.0.0.0 --port 8000 --app-dir /app --reload
+    environment:
+      - PORT=8000
+      - MY_PROJECT=Hello World
+
+    volumes:
+      - ./backend/src:/app
+
+    develop:
+      watch:
+        - action: rebuild
+          path: backend/requirements.txt
+        - action: rebuild
+          path: backend/Dockerfile
+        - action: restart
+          path: backend/src/
